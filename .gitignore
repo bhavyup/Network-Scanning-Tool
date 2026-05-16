@@ -1,0 +1,87 @@
+# -------------------------------
+# Python bytecode and caches
+# -------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+**/__pycache__/
+
+
+# -------------------------------
+# Build, packaging, and artifacts
+# -------------------------------
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+*.egg
+MANIFEST
+
+# -------------------------------
+# Test, coverage, and type-check caches
+# -------------------------------
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.pyre/
+.pytype/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+nosetests.xml
+*.cover
+*.py,cover
+
+# -------------------------------
+# Virtual environments and env files
+# -------------------------------
+.env
+.env.*
+.python-version
+.venv/
+venv/
+env/
+ENV/
+
+# -------------------------------
+# IDE/editor and OS clutter
+# -------------------------------
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -------------------------------
+# Logs and runtime output
+# -------------------------------
+logs/
+*.log
+
+# -------------------------------
+# Project-local generated output files
+# -------------------------------
+output.txt
+result.txt
+update.txt
+udp.txt
+udp_results.txt
+udp_scan_results.txt
+Network_Scanning_Project.pptx
+tools/
