@@ -14,6 +14,10 @@ SCAN_TYPES: List[str] = ["icmp", "tcp", "udp", "arp", "all"]
 FIELD_ORDER: List[str] = ["target", "ports", "scan_type", "timeout", "delay", "service_detect"]
 
 
+def _os_name() -> str:
+    return os.name
+
+
 def _has_root_privileges() -> bool:
     if hasattr(os, "geteuid"):
         try:
@@ -22,7 +26,7 @@ def _has_root_privileges() -> bool:
         except Exception:
             return False
 
-    if os.name == "nt":
+    if _os_name() == "nt":
         try:
             import ctypes
 

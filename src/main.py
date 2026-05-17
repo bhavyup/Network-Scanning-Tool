@@ -49,6 +49,10 @@ def validate_target(target: str) -> bool:
             return False
 
 
+def _os_name() -> str:
+    return os.name
+
+
 def has_root_privileges() -> bool:
     """Best-effort admin/root check across Unix and Windows."""
     if hasattr(os, "geteuid"):
@@ -58,7 +62,7 @@ def has_root_privileges() -> bool:
         except Exception:
             return False
 
-    if os.name == "nt":
+    if _os_name() == "nt":
         try:
             import ctypes
 

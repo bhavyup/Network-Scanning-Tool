@@ -186,7 +186,7 @@ def test_icmp_scan_unprivileged_posix(monkeypatch) -> None:
         seen["cmd"] = cmd
         return DummyProc()
 
-    monkeypatch.setattr(scanner_mod.os, "name", "posix", raising=False)
+    monkeypatch.setattr(scanner_mod, "_os_name", lambda: "posix")
     monkeypatch.setattr(scanner_mod.subprocess, "run", fake_run)
     assert scan.icmp_scan("1.1.1.1") is True
     assert "-c" in seen["cmd"]

@@ -73,7 +73,7 @@ def test_print_startup_precheck_no_pcap(capsys) -> None:
 
 
 def test_has_root_privileges_posix(monkeypatch) -> None:
-    monkeypatch.setattr(main_mod.os, "name", "posix", raising=False)
+    monkeypatch.setattr(main_mod, "_os_name", lambda: "posix")
     monkeypatch.setattr(main_mod.os, "geteuid", lambda: 0, raising=False)
     assert main_mod.has_root_privileges() is True
 
@@ -85,7 +85,7 @@ def test_has_root_privileges_windows(monkeypatch) -> None:
         windll=types.SimpleNamespace(shell32=types.SimpleNamespace(IsUserAnAdmin=lambda: 1))
     )
     monkeypatch.setitem(sys.modules, "ctypes", dummy_ctypes)
-    monkeypatch.setattr(main_mod.os, "name", "nt", raising=False)
+    monkeypatch.setattr(main_mod, "_os_name", lambda: "nt")
     assert main_mod.has_root_privileges() is True
 
 

@@ -426,13 +426,13 @@ def test_tui_main_scanning_key_block(monkeypatch) -> None:
 
 
 def test_has_root_privileges_posix(monkeypatch) -> None:
-    monkeypatch.setattr(tui.os, "name", "posix", raising=False)
+    monkeypatch.setattr(tui, "_os_name", lambda: "posix")
     monkeypatch.setattr(tui.os, "geteuid", lambda: 0, raising=False)
     assert tui._has_root_privileges() is True
 
 
 def test_has_root_privileges_posix_error(monkeypatch) -> None:
-    monkeypatch.setattr(tui.os, "name", "posix", raising=False)
+    monkeypatch.setattr(tui, "_os_name", lambda: "posix")
     monkeypatch.setattr(tui.os, "geteuid", lambda: (_ for _ in ()).throw(RuntimeError("x")), raising=False)
     assert tui._has_root_privileges() is False
 
@@ -442,12 +442,12 @@ def test_has_root_privileges_windows(monkeypatch) -> None:
         windll=types.SimpleNamespace(shell32=types.SimpleNamespace(IsUserAnAdmin=lambda: 1))
     )
     monkeypatch.setitem(sys.modules, "ctypes", dummy_ctypes)
-    monkeypatch.setattr(tui.os, "name", "nt", raising=False)
+    monkeypatch.setattr(tui, "_os_name", lambda: "nt")
     assert tui._has_root_privileges() is True
 
 
 def test_has_root_privileges_fallback(monkeypatch) -> None:
-    monkeypatch.setattr(tui.os, "name", "other", raising=False)
+    monkeypatch.setattr(tui, "_os_name", lambda: "other")
     if hasattr(tui.os, "geteuid"):
         monkeypatch.delattr(tui.os, "geteuid", raising=False)
     assert tui._has_root_privileges() is False

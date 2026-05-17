@@ -11,6 +11,10 @@ import errno
 
 logger = logging.getLogger("network_scanner")
 
+
+def _os_name() -> str:
+    return os.name
+
 class NetworkScanner:
     def __init__(self, timeout: int = 2, delay: float = 0.0, max_ports: int = 1024, udp_ambiguity: str = "open", unprivileged: bool = False):
         
@@ -32,7 +36,7 @@ class NetworkScanner:
         timeout_ms = max(100, int(self.timeout * 1000))
         timeout_s = max(1, int(self.timeout))
 
-        if os.name == "nt":
+        if _os_name() == "nt":
             cmd = ["ping", "-n", "1", "-w", str(timeout_ms), target]
         else:
             cmd = ["ping", "-c", "1", "-W", str(timeout_s), target]
