@@ -19,13 +19,6 @@ def _os_name() -> str:
 
 
 def _has_root_privileges() -> bool:
-    if hasattr(os, "geteuid"):
-        try:
-            geteuid = cast(Callable[[], int], os.geteuid)
-            return geteuid() == 0
-        except Exception:
-            return False
-
     if _os_name() == "nt":
         try:
             import ctypes
@@ -40,6 +33,13 @@ def _has_root_privileges() -> bool:
             if is_admin is None:
                 return False
             return bool(is_admin())
+        except Exception:
+            return False
+
+    if hasattr(os, "geteuid"):
+        try:
+            geteuid = cast(Callable[[], int], os.geteuid)
+            return geteuid() == 0
         except Exception:
             return False
 
