@@ -26,7 +26,16 @@ def _has_root_privileges() -> bool:
         try:
             import ctypes
 
-            return bool(ctypes.windll.shell32.IsUserAnAdmin())
+            windll = getattr(ctypes, "windll", None)
+            if windll is None:
+                return False
+            shell32 = getattr(windll, "shell32", None)
+            if shell32 is None:
+                return False
+            is_admin = getattr(shell32, "IsUserAnAdmin", None)
+            if is_admin is None:
+                return False
+            return bool(is_admin())
         except Exception:
             return False
 

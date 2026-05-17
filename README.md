@@ -1,11 +1,17 @@
 <div align="center">
 
-```
+<table>
+    <tr>
+        <td>
+<pre>
 +-------------------------------------------------------------------+
 |                       NETWORK SCANNING TOOL                       |
 |       Fast, pragmatic recon for hosts, ports, and services.       |
 +-------------------------------------------------------------------+
-```
+</pre>
+        </td>
+    </tr>
+</table>
 
 </div>
 
