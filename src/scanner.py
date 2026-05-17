@@ -1,4 +1,4 @@
-from scapy.all import IP, ICMP, TCP, UDP, ARP, Ether, sr1, srp, send  # type: ignore[import]
+from scapy.all import IP, ICMP, TCP, UDP, ARP, Ether, sr1, srp, send  # type: ignore[attr-defined]
 import ipaddress
 from typing import Any, List, Dict, Optional
 import time
@@ -148,12 +148,15 @@ class NetworkScanner:
                 if response is None:
                     results[port] = "filtered"
                 elif response.haslayer(TCP):
-                    if response.getlayer(TCP).flags == 0x12:  # SYN-ACK
+                    tcp_layer = response.getlayer(TCP)
+                    if tcp_layer is None:
+                        results[port] = "filtered"
+                    elif tcp_layer.flags == 0x12:  # SYN-ACK
                         results[port] = "open"
                         # Send RST to close connection
                         rst_packet = IP(dst=target)/TCP(dport=port, flags="R")
                         send(rst_packet, verbose=0)
-                    elif response.getlayer(TCP).flags == 0x14:  # RST-ACK
+                    elif tcp_layer.flags == 0x14:  # RST-ACK
                         results[port] = "closed"
                     else:
                         results[port] = "filtered"
@@ -194,8 +197,12 @@ class NetworkScanner:
                         # No response this attempt; retry (if any left)
                         pass
                     elif response.haslayer(ICMP):
-                        icmp_type = response.getlayer(ICMP).type
-                        icmp_code = response.getlayer(ICMP).code
+                        icmp_layer = response.getlayer(ICMP)
+                        if icmp_layer is None:
+                            is_closed = True
+                            break
+                        icmp_type = icmp_layer.type
+                        icmp_code = icmp_layer.code
 
                         # ICMP type 3 = Destination Unreachable
                         if icmp_type == 3 and icmp_code == 3:

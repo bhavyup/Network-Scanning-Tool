@@ -34,10 +34,22 @@ Run tests with:
 python -m pytest -q
 ```
 
+Run tests with coverage (CI target is 90%+):
+
+```
+python -m pytest -q --cov=src --cov-report=term-missing --cov-fail-under=90
+```
+
+Run type checks:
+
+```
+python -m mypy src
+```
+
 Notes:
-- Some tests perform real network actions and can be flaky on locked-down hosts or CI.
-- ARP and raw-socket scans generally require admin/root privileges.
-- Use safe, authorized targets when running scans locally.
+- Tests are deterministic and do not require network access.
+- Live scans and ARP/raw-socket modes still require admin/root privileges.
+- Use safe, authorized targets when running scans manually.
 
 ## What To Include In A PR
 

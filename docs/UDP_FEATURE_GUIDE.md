@@ -82,7 +82,7 @@ Port 161: open
 
 - UDP is connectionless and can still be difficult to interpret in strict firewall environments.
 - Use moderate delay and timeout values in production networks.
-- `--service-detect` is currently not usable because backend methods are not implemented.
+- `--service-detect` performs best-effort UDP probes and may not identify every service.
 
 ## Troubleshooting
 

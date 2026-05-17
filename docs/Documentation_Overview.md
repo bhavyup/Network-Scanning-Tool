@@ -27,8 +27,10 @@ Network-Scanning-Tool/
 │   ├── tui.py
 │   └── __init__.py
 ├── tests/
+│   ├── test_integration.py
+│   ├── test_main.py
 │   ├── test_scanner.py
-│   └── test_integration.py
+│   └── test_tui.py
 ├── docs/
 │   ├── Documentation_Overview.md
 │   ├── UDP_FEATURE_GUIDE.md
@@ -90,7 +92,8 @@ Type checking:
 python -m mypy src
 ```
 
-Note: integration scans may require admin/root privileges and a permissive network.
+Note: tests are deterministic and avoid live network calls. Live scans still
+require admin/root privileges when run manually.
 
 ## Security Reminder
 

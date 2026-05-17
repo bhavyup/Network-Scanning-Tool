@@ -3,12 +3,12 @@ import os
 import threading
 import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Callable, cast
 
 try:
     from scanner import NetworkScanner
 except Exception:  # pragma: no cover - fallback for package-style imports
-    from src.scanner import NetworkScanner  # type: ignore
+    from src.scanner import NetworkScanner
 
 SCAN_TYPES: List[str] = ["icmp", "tcp", "udp", "arp", "all"]
 FIELD_ORDER: List[str] = ["target", "ports", "scan_type", "timeout", "delay", "service_detect"]
@@ -17,7 +17,8 @@ FIELD_ORDER: List[str] = ["target", "ports", "scan_type", "timeout", "delay", "s
 def _has_root_privileges() -> bool:
     if hasattr(os, "geteuid"):
         try:
-            return os.geteuid() == 0
+            geteuid = cast(Callable[[], int], os.geteuid)
+            return geteuid() == 0
         except Exception:
             return False
 
@@ -35,10 +36,11 @@ def _has_root_privileges() -> bool:
 def _collect_tui_precheck(
     scanner: NetworkScanner, precheck: Optional[Dict[str, Any]] = None
 ) -> Dict[str, Any]:
+    data: Dict[str, Any]
     if precheck is not None:
         data = dict(precheck)
     else:
-        data: Dict[str, Any] = {
+        data = {
             "is_privileged": _has_root_privileges(),
             "scapy_version": "unknown",
             "scapy_use_pcap": None,

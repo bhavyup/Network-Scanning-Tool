@@ -5,13 +5,13 @@ import os
 import sys
 import logging
 from datetime import datetime
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Callable, cast
 import ipaddress
 
 try:
     from scanner import NetworkScanner
 except Exception:  # pragma: no cover - fallback for package-style imports
-    from src.scanner import NetworkScanner  # type: ignore
+    from src.scanner import NetworkScanner
 
 def parse_ports(ports_str: str) -> List[int]:
     """Parse port string into list of integers"""
@@ -53,7 +53,8 @@ def has_root_privileges() -> bool:
     """Best-effort admin/root check across Unix and Windows."""
     if hasattr(os, "geteuid"):
         try:
-            return os.geteuid() == 0
+            geteuid = cast(Callable[[], int], os.geteuid)
+            return geteuid() == 0
         except Exception:
             return False
 
@@ -298,7 +299,7 @@ def main() -> None:
                 from tui import run_tui
             except Exception:
                 # try package-style import if running as module
-                from src.tui import run_tui  # type: ignore
+                from src.tui import run_tui
             precheck["use_unprivileged"] = use_unprivileged
             run_tui(scanner, precheck=precheck)
             return

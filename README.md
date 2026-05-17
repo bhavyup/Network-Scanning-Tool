@@ -12,9 +12,9 @@
 <!-- readme-gen:start:badges -->
 <div align="center">
 
-![Python](https://img.shields.io/badge/python-3.10%2B-0d1117?style=for-the-badge&labelColor=161b22&logo=python&logoColor=white)
-![License](https://img.shields.io/github/license/bhavyup/Network-Scanning-Tool?style=for-the-badge&labelColor=161b22&color=0d1117)
 ![CI](https://img.shields.io/github/actions/workflow/status/bhavyup/Network-Scanning-Tool/ci.yml?style=for-the-badge&labelColor=161b22&logo=githubactions&logoColor=white&color=0d1117)
+![License](https://img.shields.io/github/license/bhavyup/Network-Scanning-Tool?style=for-the-badge&labelColor=161b22&color=0d1117)
+![Python](https://img.shields.io/badge/python-3.10%2B-0d1117?style=for-the-badge&labelColor=161b22&logo=python&logoColor=white)
 
 ![Stars](https://img.shields.io/github/stars/bhavyup/Network-Scanning-Tool?style=for-the-badge&labelColor=161b22&color=0d1117)
 ![Forks](https://img.shields.io/github/forks/bhavyup/Network-Scanning-Tool?style=for-the-badge&labelColor=161b22&color=0d1117)
@@ -23,6 +23,12 @@
 
 </div>
 <!-- readme-gen:end:badges -->
+
+<!-- readme-gen:start:tech-stack -->
+<p align="center">
+    <img src="https://skillicons.dev/icons?i=py,githubactions&theme=dark" alt="Tech Stack" />
+</p>
+<!-- readme-gen:end:tech-stack -->
 
 > Network reconnaissance should be fast, readable, and safe by default. This tool gives you a single CLI and TUI surface to check host liveness, probe ports, and collect basic service hints without drowning you in noise.
 
@@ -122,13 +128,9 @@ graph LR
 <!-- readme-gen:start:tree -->
 ```
 Network-Scanning-Tool/
-├── src/
-│   ├── main.py
-│   ├── scanner.py
-│   └── tui.py
-├── tests/
-│   ├── test_scanner.py
-│   └── test_integration.py
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── docs/
 │   ├── Documentation_Overview.md
 │   ├── UDP_FEATURE_GUIDE.md
@@ -136,6 +138,21 @@ Network-Scanning-Tool/
 ├── scripts/
 │   ├── bootstrap.ps1
 │   └── bootstrap.sh
+├── src/
+│   ├── main.py
+│   ├── scanner.py
+│   └── tui.py
+├── tests/
+│   ├── test_integration.py
+│   ├── test_main.py
+│   ├── test_scanner.py
+│   └── test_tui.py
+├── .coveragerc
+├── .readme-gen.json
+├── CONTRIBUTING.md
+├── LICENSE
+├── mypy.ini
+├── pytest.ini
 ├── requirements.txt
 ├── requirements-dev.txt
 └── setup.py
@@ -147,13 +164,13 @@ Network-Scanning-Tool/
 <!-- readme-gen:start:health -->
 | Category | Status | Score |
 |:---------|:------:|------:|
-| Tests | ########............ | 40% |
-| CI/CD | ########............ | 40% |
-| Type Safety | ########............ | 40% |
+| Tests | ################.... | 80% |
+| CI/CD | ################.... | 80% |
+| Type Safety | ################.... | 80% |
 | Documentation | ################.... | 80% |
-| Coverage | .................... | 0% |
+| Coverage | ##################.. | 90% |
 
-> Overall: 40% - Needs attention
+> Overall: 82% - Healthy
 <!-- readme-gen:end:health -->
 
 ## Contributing
@@ -166,6 +183,8 @@ MIT. See [LICENSE](LICENSE).
 
 <!-- readme-gen:start:footer -->
 <div align="center">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,1&height=100&section=footer" width="100%" />
+
 Built with care by [Contributors](https://github.com/bhavyup/Network-Scanning-Tool/graphs/contributors)
 </div>
 <!-- readme-gen:end:footer -->
